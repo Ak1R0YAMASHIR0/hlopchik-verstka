@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ru"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Администрирование — кофейня «Хлопчик»</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="admin">
+
+<a class="skip" href="#main">Перейти к содержимому</a>
+
+<header class="head" id="head">
+  <div class="wrap head__in">
+    <a class="brand" href="index.html" aria-label="Хлопчик — на главную">
+      <svg class="brand__mark" viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="19" fill="none" stroke="currentColor" stroke-width="1.2"></circle>
+        <path d="M12 21.5h14v4.2a7 7 0 0 1-7 7 7 7 0 0 1-7-7v-4.2Z" fill="currentColor"></path>
+        <path d="M26 22.6h1.9a3.4 3.4 0 0 1 0 6.8H26" fill="none" stroke="currentColor" stroke-width="1.5"></path>
+        <path d="M16.5 16.4c0-1.8 1.8-1.8 1.8-3.6M21.7 16.4c0-1.8 1.8-1.8 1.8-3.6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path>
+      </svg>
+      <span class="brand__text">
+        <span class="brand__name">Хлопчик</span>
+        <span class="brand__sub">служебная зона</span>
+      </span>
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Основная навигация">
+      <a href="index.html" data-nav="home">Главная</a>
+      <a href="menu.html" data-nav="menu">Меню</a>
+      <a href="about.html" data-nav="about">О нас</a>
+      <a href="contacts.html" data-nav="contacts">Контакты</a>
+      <a href="account.html" data-nav="account">Кабинет</a>
+    </nav>
+
+    <div class="head__actions">
+      <a class="cart-pill" href="cart.html" aria-label="Корзина">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M6 7h12l-1.2 12.2a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 7Z" stroke-linejoin="round"></path>
+          <path d="M9 7V5.6A3 3 0 0 1 12 2.6a3 3 0 0 1 3 3V7" stroke-linecap="round"></path>
+        </svg>
+        <span class="cart-pill__label">Корзина</span>
+        <span class="cart-pill__count" data-cart-count="">0</span>
+      </a>
+      <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ЗАЩИТА: вход администратора -->
+  <div class="wrap" id="admin-guard" hidden="">
+    <div class="admin-guard">
+      <p class="eyebrow eyebrow--plain" style="justify-content:center">Служебный вход</p>
+      <h1>Панель<br><em>администратора</em></h1>
+      <p>Заказы, сообщения и каталог. Доступ только у сотрудников кофейни.</p>
+
+      <div id="guard-signed-out" hidden="">
+        <form class="form" id="admin-login" novalidate="">
+          <div class="alert" id="admin-alert" role="alert"></div>
+          <div class="field" data-field="email">
+            <label for="adm-email">E-mail</label>
+            <input class="input" id="adm-email" name="email" type="email" autocomplete="username" placeholder="admin@hlopchik.ru">
+            <span class="field__err"></span>
+          </div>
+          <div class="field" data-field="password">
+            <label for="adm-password">Пароль</label>
+            <input class="input" id="adm-password" name="password" type="password" autocomplete="current-password" placeholder="••••••••">
+            <span class="field__err"></span>
+          </div>
+          <button class="btn btn--rust btn--block" type="submit">Войти</button>
+        </form>
+        <p class="small muted" style="margin-top:16px">Демо-доступ: admin@hlopchik.ru / admin1234</p>
+      </div>
+
+      <div id="guard-signed-in">
+        <p style="margin-bottom:20px">Вы вошли как <b id="guard-name">Администратор</b>, но у аккаунта нет прав администратора.</p>
+        <div class="row" style="justify-content:center;flex-wrap:wrap">
+          <button class="btn btn--ghost" id="guard-logout" type="button">Выйти</button>
+          <a class="btn btn--rust" href="account.html">В личный кабинет</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ПАНЕЛЬ -->
+  <section id="admin-app">
+    <div class="wrap admin-head">
+      <div>
+        <p class="eyebrow">Хлопчик · служебная зона</p>
+        <h1>Смена <em>на сегодня</em></h1>
+      </div>
+      <div class="admin-user">
+        <b id="admin-name">Администратор</b>
+        <span id="admin-mail">admin@hlopchik.ru</span>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="admin-tabs" role="tablist" aria-label="Разделы панели">
+        <button class="admin-tab" id="atab-orders" role="tab" data-tab="orders" aria-selected="false" aria-controls="tab-orders">
+          Заказы <b id="count-orders">2</b>
+        </button>
+        <button class="admin-tab" id="atab-messages" role="tab" data-tab="messages" aria-selected="true" aria-controls="tab-messages">
+          Сообщения <b id="count-messages">1</b>
+        </button>
+        <button class="admin-tab" id="atab-products" role="tab" data-tab="products" aria-selected="false" aria-controls="tab-products">
+          Товары
+        </button>
+      </div>
+    </div>
+
+    <div class="wrap admin-body">
+
+      <!-- заказы -->
+      <div class="panel" id="tab-orders" role="tabpanel" aria-labelledby="atab-orders" hidden="">
+        <div class="admin-toolbar">
+          <p>Новые заказы сверху. Статус меняется прямо в таблице — гость увидит его в личном кабинете.</p>
+        </div>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Заказ</th>
+                <th>Дата</th>
+                <th>Клиент</th>
+                <th>Состав</th>
+                <th>Сумма</th>
+                <th>Получение</th>
+                <th>Статус</th>
+              </tr>
+            </thead>
+            <tbody id="admin-orders-body"><tr><td class="table__num">#1042</td><td class="table__muted">03.11.2026, 12:59</td><td>Аня Соколова<div class="table__muted">+7 916 204-18-32</div><div class="table__muted">demo@hlopchik.ru</div></td><td>Латте на кокосовом ×1<br>Чизкейк с облепихой ×1</td><td class="table__sum">640 ₽</td><td>Самовывоз</td><td><select class="select select--cell" data-status="o_1042" aria-label="Статус заказа"><option value="new">Новый</option><option value="cooking">Готовится</option><option value="ready" selected="">Готов</option><option value="done">Выдан</option><option value="canceled">Отменён</option></select></td></tr><tr><td class="table__num">#1041</td><td class="table__muted">18.10.2026, 12:59</td><td>Аня Соколова<div class="table__muted">+7 916 204-18-32</div><div class="table__muted">demo@hlopchik.ru</div></td><td>Капучино ×2<br>Круассан с миндалём ×2</td><td class="table__sum">1&nbsp;199 ₽</td><td>Доставка<div class="table__muted">Сергиев Посад, пр. Красной Армии, 12, кв. 27</div></td><td><select class="select select--cell" data-status="o_1041" aria-label="Статус заказа"><option value="new">Новый</option><option value="cooking">Готовится</option><option value="ready">Готов</option><option value="done" selected="">Выдан</option><option value="canceled">Отменён</option></select></td></tr></tbody>
+          </table>
+        </div>
+        <div class="empty" id="admin-orders-empty" hidden="">
+          <h3>Заказов пока нет</h3>
+          <p>Как только гость оформит заказ, он появится здесь.</p>
+        </div>
+      </div>
+
+      <!-- сообщения -->
+      <div class="panel" id="tab-messages" role="tabpanel" aria-labelledby="atab-messages">
+        <div class="admin-toolbar">
+          <p>Обращения из формы на странице «Контакты».</p>
+        </div>
+        <div id="admin-messages"><article class="message-card is-unread"><div><div class="message-card__top"><span class="message-card__name">Марина</span><span class="message-card__mail">marina.k@example.com</span><span class="message-card__topic">Вопрос по заказу</span></div><p class="message-card__text">Добрый день! Можно ли забрать заказ не в 9:00, а в 8:30? Очень нужно успеть на поезд.</p></div><div style="text-align:right"><div class="message-card__date">04.11.2026, 10:59</div><button class="text-btn" style="margin-top:10px" data-read="m_mw3diwh4w33dy">Отметить прочитанным</button></div></article></div>
+        <div class="empty" id="admin-messages-empty" hidden="">
+          <h3>Сообщений нет</h3>
+          <p>Пока тихо — видимо, всем всё нравится.</p>
+        </div>
+      </div>
+
+      <!-- товары -->
+      <div class="panel" id="tab-products" role="tabpanel" aria-labelledby="atab-products" hidden="">
+        <div class="admin-toolbar">
+          <p>Базовый каталог кофейни: 11 позиций. Новые товары добавляются кнопкой справа.</p>
+          <div class="admin-actions">
+            <button class="btn btn--ghost btn--sm" id="reset-products" type="button">Сбросить каталог</button>
+            <button class="btn btn--rust btn--sm" id="add-product" type="button">Добавить товар</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="table admin-products">
+            <thead>
+              <tr>
+                <th>Фото</th>
+                <th>Название</th>
+                <th>Категория</th>
+                <th>Цена</th>
+                <th>Действия</th>
+              </tr>
+            </thead>
+            <tbody id="admin-products-body"><tr><td><div class="admin-thumb"><img src="images/menu/espresso.jpg" alt="Эспрессо «Хлопчик»"></div></td><td><b>Эспрессо «Хлопчик»</b><div class="table__muted">наш бленд</div></td><td>Кофе</td><td class="table__sum">180 ₽</td><td><div class="row-actions"><button class="text-btn" data-edit="espresso">Изменить</button><button class="text-btn" data-del="espresso">Удалить</button></div></td></tr><tr><td><div class="admin-thumb"><img src="images/menu/cappuccino.jpg" alt="Капучино"></div></td><td><b>Капучино</b></td><td>Кофе</td><td class="table__sum">260 ₽</td><td><div class="row-actions"><button class="text-btn" data-edit="cappuccino">Изменить</button><button class="text-btn" data-del="cappuccino">Удалить</button></div></td></tr><tr><td><div class="admin-thumb"><img src="images/menu/latte-coconut.jpg" alt="Латте на кокосовом"></div></td><td><b>Латте на кокосовом</b></td><td>Кофе</td><td class="table__sum">320 ₽</td><td><div class="row-actions"><button class="text-btn" data-edit="latte-coconut">Изменить</button><button class="text-btn" data-del="latte-coconut">Удалить</button></div></td></tr><tr><td><div class="admin-thumb"><img src="images/menu/raf-vanilla.jpg" alt="Раф ванильный"></div></td><td><b>Раф ванильный</b><div class="table__muted">берут чаще всего</div></td><td>Кофе</td><td class="table__sum">340 ₽</td><td><div class="row-actions"><button class="text-btn" data-edit="raf-vanilla">Изменить</button><button class="text-btn" data-del="raf-vanilla">Удалить</button></div></td></tr><tr><td><div class="admin-thumb"><img src="images/menu/filter-ethiopia.jpg" alt="Фильтр Эфиопия"></div></td><td><b>Фильтр Эфиопия</b></td><td>Кофе</td><td class="table__sum">290 ₽</td><td><div class="row-actions"><button class="text-btn" data-edit="filter-ethiopia">Изменить</button><button class="text-btn" data-del="filter-ethiopia">Удалить</button></div></td></tr><tr><td><div class="admin-thumb"><img src="images/menu/croissant-almond.jpg" alt="Круассан с миндалём"></div></td><td><b>Круассан с миндалём</b><div class="table__muted">свежее</div></td><td>Десерты</td><td class="table__sum">240 ₽</td><td><div class="row-actions"><button class="text-btn" data-edit="croissant-almond">Изменить</button><button class="text-btn" data-del="croissant-almond">Удалить</button></div></td></tr><tr><td><div class="admin-thumb"><img src="images/menu/cheesecake-seabuckthorn.jpg" alt="Чизкейк с облепихой"></div></td><td><b>Чизкейк с облепихой</b></td><td>Десерты</td><td class="table__sum">320 ₽</td><td><div class="row-actions"><button class="text-btn" data-edit="cheesecake-seabuckthorn">Изменить</button><button class="text-btn" data-del="cheesecake-seabuckthorn">Удалить</button></div></td></tr><tr><td><div class="admin-thumb"><img src="images/menu/cinnamon-roll.jpg" alt="Синнабон"></div></td><td><b>Синнабон</b></td><td>Десерты</td><td class="table__sum">280 ₽</td><td><div class="row-actions"><button class="text-btn" data-edit="cinnamon-roll">Изменить</button><button class="text-btn" data-del="cinnamon-roll">Удалить</button></div></td></tr><tr><td><div class="admin-thumb"><img src="images/menu/avocado-toast.jpg" alt="Тост с авокадо"></div></td><td><b>Тост с авокадо</b></td><td>Завтраки</td><td class="table__sum">420 ₽</td><td><div class="row-actions"><button class="text-btn" data-edit="avocado-toast">Изменить</button><button class="text-btn" data-del="avocado-toast">Удалить</button></div></td></tr><tr><td><div class="admin-thumb"><img src="images/menu/omelette-tomato.jpg" alt="Омлет с томатами"></div></td><td><b>Омлет с томатами</b></td><td>Завтраки</td><td class="table__sum">390 ₽</td><td><div class="row-actions"><button class="text-btn" data-edit="omelette-tomato">Изменить</button><button class="text-btn" data-del="omelette-tomato">Удалить</button></div></td></tr><tr><td><div class="admin-thumb"><img src="images/menu/granola-berries.jpg" alt="Гранола с ягодами"></div></td><td><b>Гранола с ягодами</b></td><td>Завтраки</td><td class="table__sum">350 ₽</td><td><div class="row-actions"><button class="text-btn" data-edit="granola-berries">Изменить</button><button class="text-btn" data-del="granola-berries">Удалить</button></div></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<!-- РЕДАКТОР ТОВАРА -->
+<div class="modal" id="product-modal" aria-hidden="true">
+  <div class="modal__backdrop" data-close=""></div>
+  <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="product-modal-title">
+    <button class="modal__x" type="button" data-close="" aria-label="Закрыть">×</button>
+    <p class="eyebrow">Каталог</p>
+    <h2 class="modal__title" id="product-modal-title">Новый товар</h2>
+
+    <form class="form" id="product-form" novalidate="">
+      <input type="hidden" name="id">
+      <div class="form__grid">
+        <div class="field form__full" data-field="title">
+          <label for="pr-title">Название</label>
+          <input class="input" id="pr-title" name="title" type="text" placeholder="Например: Флэт уайт">
+          <span class="field__err"></span>
+        </div>
+        <div class="field" data-field="category">
+          <label for="pr-category">Категория</label>
+          <select class="select" id="pr-category" name="category"></select>
+          <span class="field__err"></span>
+        </div>
+        <div class="field" data-field="price">
+          <label for="pr-price">Цена, ₽</label>
+          <input class="input" id="pr-price" name="price" type="number" min="0" step="10" placeholder="260">
+          <span class="field__err"></span>
+        </div>
+        <div class="field form__full" data-field="description">
+          <label for="pr-desc">Описание</label>
+          <textarea class="textarea" id="pr-desc" name="description" placeholder="Коротко: вкус, состав, почему стоит взять"></textarea>
+          <span class="field__err"></span>
+        </div>
+        <div class="field" data-field="badge">
+          <label for="pr-badge">Метка <span class="muted">(необязательно)</span></label>
+          <input class="input" id="pr-badge" name="badge" type="text" placeholder="новинка">
+        </div>
+        <div class="field form__full" data-field="image">
+          <label for="pr-image">Фото <span class="muted">(путь к файлу или ссылка)</span></label>
+          <input class="input" id="pr-image" name="image" type="text" placeholder="images/menu/latte.jpg">
+          <span class="field__hint">Если оставить пустым, в карточке будет заглушка <code>images/menu/placeholder.jpg</code>.</span>
+        </div>
+      </div>
+      <div class="form__foot">
+        <button class="btn btn--rust" type="submit">Сохранить</button>
+        <span class="form__notice">Товар сразу появится в меню и в корзине.</span>
+      </div>
+    </form>
+  </div>
+</div>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__top">
+      <div class="foot__brand">
+        <p class="foot__word">Хлопчик</p>
+        <p class="foot__tag">Кофейня, в которой хочется остаться на второй капучино. Пр. Красной Армии, 12 — с 2020 года.</p>
+      </div>
+      <div class="foot__cols">
+        <div class="foot__col">
+          <h3>Меню</h3>
+          <a href="menu.html#coffee">Кофе</a>
+          <a href="menu.html#desserts">Десерты</a>
+          <a href="menu.html#breakfast">Завтраки</a>
+        </div>
+        <div class="foot__col">
+          <h3>Кофейня</h3>
+          <a href="about.html">О нас</a>
+          <a href="contacts.html">Контакты</a>
+          <a href="account.html">Личный кабинет</a>
+          <a href="cart.html">Корзина</a>
+        </div>
+        <div class="foot__col">
+          <h3>Связь</h3>
+          <a href="tel:+74951201414">+7 495 120-14-14</a>
+          <a href="mailto:hello@hlopchik.ru">hello@hlopchik.ru</a>
+          <span>8:00–22:00, без выходных</span>
+        </div>
+      </div>
+    </div>
+    <div class="foot__bottom">
+      <span>© 2026 Кофейня «Хлопчик». Учебный проект.</span>
+      <span>Сергиев Посад, пр. Красной Армии, 12 · ежедневно 8:00–22:00</span>
+      <a href="index.html">На главную</a>
+    </div>
+  </div>
+</footer>
+
+<div class="toasts" id="toasts" aria-live="polite" aria-atomic="false"></div>
+
+</body>
+</html>

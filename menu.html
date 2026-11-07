@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Меню — кофейня «Хлопчик»</title>
+  <meta name="description" content="Меню кофейни «Хлопчик»: кофе, десерты и завтраки. Фильтр по категориям и поиск по названию.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="menu">
+
+<a class="skip" href="#main">Перейти к содержимому</a>
+
+<header class="head" id="head">
+  <div class="wrap head__in">
+    <a class="brand" href="index.html" aria-label="Хлопчик — на главную">
+      <svg class="brand__mark" viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="19" fill="none" stroke="currentColor" stroke-width="1.2"></circle>
+        <path d="M12 21.5h14v4.2a7 7 0 0 1-7 7 7 7 0 0 1-7-7v-4.2Z" fill="currentColor"></path>
+        <path d="M26 22.6h1.9a3.4 3.4 0 0 1 0 6.8H26" fill="none" stroke="currentColor" stroke-width="1.5"></path>
+        <path d="M16.5 16.4c0-1.8 1.8-1.8 1.8-3.6M21.7 16.4c0-1.8 1.8-1.8 1.8-3.6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path>
+      </svg>
+      <span class="brand__text">
+        <span class="brand__name">Хлопчик</span>
+        <span class="brand__sub">кофейня &amp; пекарня</span>
+      </span>
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Основная навигация">
+      <a href="index.html" data-nav="home">Главная</a>
+      <a href="menu.html" data-nav="menu" class="is-active" aria-current="page">Меню</a>
+      <a href="about.html" data-nav="about">О нас</a>
+      <a href="contacts.html" data-nav="contacts">Контакты</a>
+      <a href="account.html" data-nav="account">Кабинет</a>
+    </nav>
+
+    <div class="head__actions">
+      <a class="cart-pill" href="cart.html" aria-label="Корзина">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M6 7h12l-1.2 12.2a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 7Z" stroke-linejoin="round"></path>
+          <path d="M9 7V5.6A3 3 0 0 1 12 2.6a3 3 0 0 1 3 3V7" stroke-linecap="round"></path>
+        </svg>
+        <span class="cart-pill__label">Корзина</span>
+        <span class="cart-pill__count" data-cart-count="">0</span>
+      </a>
+      <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <div class="page-head">
+    <div class="wrap page-head__in">
+      <div>
+        <p class="crumbs"><a href="index.html">Главная</a> / Меню</p>
+        <h1>Всё, что мы<br><em>варим и печём</em></h1>
+      </div>
+      <p class="page-head__aside">Меню меняется каждые пару месяцев — вслед за сезоном. Если чего-то нет, значит, закончилось: мы не держим вчерашнее.</p>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <div class="wrap toolbar__in">
+      <div class="search">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <circle cx="9" cy="9" r="6"></circle><path d="m13.4 13.4 4 4" stroke-linecap="round"></path>
+        </svg>
+        <label class="sr-only" for="menu-search">Поиск по названию</label>
+        <input id="menu-search" type="search" placeholder="Найти по названию…" autocomplete="off">
+      </div>
+      <div class="pills" id="menu-filters" role="group" aria-label="Категории меню"><button class="pill" type="button" data-cat="all" aria-pressed="true">Всё <i>11</i></button><button class="pill" type="button" data-cat="coffee" aria-pressed="false">Кофе <i>5</i></button><button class="pill" type="button" data-cat="desserts" aria-pressed="false">Десерты <i>3</i></button><button class="pill" type="button" data-cat="breakfast" aria-pressed="false">Завтраки <i>3</i></button></div>
+      <span class="toolbar__count" id="menu-count">11 позиций</span>
+    </div>
+  </div>
+
+  <section class="wrap" aria-label="Список товаров">
+    <div class="grid grid--3 menu-grid" id="menu-grid"><article class="card reveal is-in" style="transition-delay: 0ms;"><div class="card__art"><span class="card__num">01</span><span class="card__badge">наш бленд</span><img src="images/menu/espresso.jpg" alt="Эспрессо «Хлопчик»"></div><div class="card__body"><span class="card__cat">Кофе</span><h3 class="card__title">Эспрессо «Хлопчик»</h3><p class="card__desc">Плотный, с нотами тёмного шоколада и вишни. Наш бленд: 70% бразильской арабики, 30% робусты.</p><div class="card__foot"><span class="card__price">180 ₽</span><button class="btn btn--ghost btn--sm" type="button" data-add="espresso">В корзину</button></div></div></article><article class="card reveal is-in" style="transition-delay: 70ms;"><div class="card__art"><span class="card__num">02</span><img src="images/menu/cappuccino.jpg" alt="Капучино"></div><div class="card__body"><span class="card__cat">Кофе</span><h3 class="card__title">Капучино</h3><p class="card__desc">Бархатная молочная пенка, мягкая горчинка и вкус, который держится до последнего глотка.</p><div class="card__foot"><span class="card__price">260 ₽</span><button class="btn btn--ghost btn--sm" type="button" data-add="cappuccino">В корзину</button></div></div></article><article class="card reveal is-in" style="transition-delay: 140ms;"><div class="card__art"><span class="card__num">03</span><img src="images/menu/latte-coconut.jpg" alt="Латте на кокосовом"></div><div class="card__body"><span class="card__cat">Кофе</span><h3 class="card__title">Латте на кокосовом</h3><p class="card__desc">Кокосовое молоко, светлая обжарка и капля ванили. Для тех, кто не пьёт коровье.</p><div class="card__foot"><span class="card__price">320 ₽</span><button class="btn btn--ghost btn--sm" type="button" data-add="latte-coconut">В корзину</button></div></div></article><article class="card reveal is-in" style="transition-delay: 210ms;"><div class="card__art"><span class="card__num">04</span><span class="card__badge">берут чаще всего</span><img src="images/menu/raf-vanilla.jpg" alt="Раф ванильный"></div><div class="card__body"><span class="card__cat">Кофе</span><h3 class="card__title">Раф ванильный</h3><p class="card__desc">Сливки, ваниль и щепотка соли. Взбиваем вручную — поэтому он такой бархатный.</p><div class="card__foot"><span class="card__price">340 ₽</span><button class="btn btn--ghost btn--sm" type="button" data-add="raf-vanilla">В корзину</button></div></div></article><article class="card reveal is-in" style="transition-delay: 0ms;"><div class="card__art"><span class="card__num">05</span><img src="images/menu/filter-ethiopia.jpg" alt="Фильтр Эфиопия"></div><div class="card__body"><span class="card__cat">Кофе</span><h3 class="card__title">Фильтр Эфиопия</h3><p class="card__desc">Светлая обжарка: жасмин, персик и чайная терпкость. Завариваем в воронке V60.</p><div class="card__foot"><span class="card__price">290 ₽</span><button class="btn btn--ghost btn--sm" type="button" data-add="filter-ethiopia">В корзину</button></div></div></article><article class="card reveal is-in" style="transition-delay: 70ms;"><div class="card__art"><span class="card__num">06</span><span class="card__badge">свежее</span><img src="images/menu/croissant-almond.jpg" alt="Круассан с миндалём"></div><div class="card__body"><span class="card__cat">Десерты</span><h3 class="card__title">Круассан с миндалём</h3><p class="card__desc">Печём к семи утра. Слоистый, с миндальным кремом и лепестками миндаля.</p><div class="card__foot"><span class="card__price">240 ₽</span><button class="btn btn--ghost btn--sm" type="button" data-add="croissant-almond">В корзину</button></div></div></article><article class="card reveal is-in" style="transition-delay: 140ms;"><div class="card__art"><span class="card__num">07</span><img src="images/menu/cheesecake-seabuckthorn.jpg" alt="Чизкейк с облепихой"></div><div class="card__body"><span class="card__cat">Десерты</span><h3 class="card__title">Чизкейк с облепихой</h3><p class="card__desc">Нежный сырный крем, песочная основа и кисло-сладкая облепиха.</p><div class="card__foot"><span class="card__price">320 ₽</span><button class="btn btn--ghost btn--sm" type="button" data-add="cheesecake-seabuckthorn">В корзину</button></div></div></article><article class="card reveal is-in" style="transition-delay: 210ms;"><div class="card__art"><span class="card__num">08</span><img src="images/menu/cinnamon-roll.jpg" alt="Синнабон"></div><div class="card__body"><span class="card__cat">Десерты</span><h3 class="card__title">Синнабон</h3><p class="card__desc">Мягкая булочка с корицей, сливочной глазурью и очень щедрой порцией корицы.</p><div class="card__foot"><span class="card__price">280 ₽</span><button class="btn btn--ghost btn--sm" type="button" data-add="cinnamon-roll">В корзину</button></div></div></article><article class="card reveal is-in" style="transition-delay: 0ms;"><div class="card__art"><span class="card__num">09</span><img src="images/menu/avocado-toast.jpg" alt="Тост с авокадо"></div><div class="card__body"><span class="card__cat">Завтраки</span><h3 class="card__title">Тост с авокадо</h3><p class="card__desc">Ржаной хлеб, авокадо, яйцо пашот и семена чиа. Подаём до полудня.</p><div class="card__foot"><span class="card__price">420 ₽</span><button class="btn btn--ghost btn--sm" type="button" data-add="avocado-toast">В корзину</button></div></div></article><article class="card reveal is-in" style="transition-delay: 70ms;"><div class="card__art"><span class="card__num">10</span><img src="images/menu/omelette-tomato.jpg" alt="Омлет с томатами"></div><div class="card__body"><span class="card__cat">Завтраки</span><h3 class="card__title">Омлет с томатами</h3><p class="card__desc">Три яйца, сливки, черри и зелёное масло. Со свежим хлебом из нашей пекарни.</p><div class="card__foot"><span class="card__price">390 ₽</span><button class="btn btn--ghost btn--sm" type="button" data-add="omelette-tomato">В корзину</button></div></div></article><article class="card reveal is-in" style="transition-delay: 140ms;"><div class="card__art"><span class="card__num">11</span><img src="images/menu/granola-berries.jpg" alt="Гранола с ягодами"></div><div class="card__body"><span class="card__cat">Завтраки</span><h3 class="card__title">Гранола с ягодами</h3><p class="card__desc">Домашняя гранола, греческий йогурт и сезонные ягоды. Лёгкое начало дня.</p><div class="card__foot"><span class="card__price">350 ₽</span><button class="btn btn--ghost btn--sm" type="button" data-add="granola-berries">В корзину</button></div></div></article></div>
+
+    <div class="empty" id="menu-empty" hidden="">
+      <h3>Ничего не нашлось</h3>
+      <p>Попробуйте другое название или сбросьте фильтры — в меню точно есть что-то тёплое.</p>
+      <button class="btn btn--ghost" id="menu-reset" type="button">Показать всё меню</button>
+    </div>
+
+    <p class="small muted" style="margin-top:32px;max-width:52ch">Цены указаны за порцию. Десерты и выпечка — из пекарни при кофейне, готовим каждое утро. Состав и аллергены уточняйте у бариста.</p>
+  </section>
+
+  <div class="wrap section--tight"></div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__top">
+      <div class="foot__brand">
+        <p class="foot__word">Хлопчик</p>
+        <p class="foot__tag">Кофейня, в которой хочется остаться на второй капучино. Пр. Красной Армии, 12 — с 2020 года.</p>
+      </div>
+      <div class="foot__cols">
+        <div class="foot__col">
+          <h3>Меню</h3>
+          <a href="menu.html#coffee">Кофе</a>
+          <a href="menu.html#desserts">Десерты</a>
+          <a href="menu.html#breakfast">Завтраки</a>
+        </div>
+        <div class="foot__col">
+          <h3>Кофейня</h3>
+          <a href="about.html">О нас</a>
+          <a href="contacts.html">Контакты</a>
+          <a href="account.html">Личный кабинет</a>
+          <a href="cart.html">Корзина</a>
+        </div>
+        <div class="foot__col">
+          <h3>Связь</h3>
+          <a href="tel:+74951201414">+7 495 120-14-14</a>
+          <a href="mailto:hello@hlopchik.ru">hello@hlopchik.ru</a>
+          <span>8:00–22:00, без выходных</span>
+        </div>
+      </div>
+    </div>
+    <div class="foot__bottom">
+      <span>© 2026 Кофейня «Хлопчик». Учебный проект.</span>
+      <span>Сергиев Посад, пр. Красной Армии, 12 · ежедневно 8:00–22:00</span>
+      <a href="admin.html">Панель администратора</a>
+    </div>
+  </div>
+</footer>
+
+<div class="toasts" id="toasts" aria-live="polite" aria-atomic="false"></div>
+
+</body>
+</html>
