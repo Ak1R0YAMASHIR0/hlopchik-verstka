@@ -327,18 +327,21 @@ p { margin: 0; }
   border-radius: 999px;
   background: transparent;
   padding: 0;
-  place-items: center;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 4px;
   cursor: pointer;
 }
 .burger span {
   display: block;
   width: 16px; height: 1.5px;
   background: var(--ink);
-  margin: 2.5px auto;
   transition: transform .25s var(--ease), opacity .2s;
 }
-.burger[aria-expanded="true"] span:first-child { transform: translateY(3.2px) rotate(45deg); }
-.burger[aria-expanded="true"] span:last-child { transform: translateY(-3.2px) rotate(-45deg); }
+.burger[aria-expanded="true"] span:first-child { transform: translateY(5.5px) rotate(45deg); }
+.burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.burger[aria-expanded="true"] span:last-child { transform: translateY(-5.5px) rotate(-45deg); }
 
 /* ---------- 5. Кнопки и ссылки ------------------------------ */
 .btn {
@@ -1964,7 +1967,7 @@ p { margin: 0; }
   }
   .nav a::after { display: none; }
   .nav a.is-active { color: var(--rust); }
-  .burger { display: grid; }
+  .burger { display: flex; }
   .head__in { gap: 12px; }
 
   .hero__in { grid-template-columns: 1fr; gap: 10px; }
